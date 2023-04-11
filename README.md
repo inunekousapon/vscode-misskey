@@ -1,6 +1,4 @@
-# vscode-misskey README
-
-使い方
+# 使い方
 
 ```
 git clone https://github.com/inunekousapon/vscode-misskey.git
@@ -23,4 +21,4 @@ URLは `https://misskey.io` とか入れる。
 	);
 ```
 
-VSCodeで開いてRun Extensionでデバッグできます。
+VSCodeで開いてRun Extensionでデバッグ。
