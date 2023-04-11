@@ -15,13 +15,13 @@ URLは `https://misskey.io` とか入れる。
 
 ```typescript
 const stream = new Stream(
-	'<< input misskey server host >>',
-	{
-		token: '<< input your token >>'
-	},
-	{
-		WebSocket: WebSocket
-	}
+'<< misskey host >>',
+{
+    token: '<< input your token >>'
+},
+{
+    WebSocket: WebSocket
+}
 );
 ```
 
