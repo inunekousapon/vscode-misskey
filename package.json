@@ -40,7 +40,7 @@
       "misskey-TL": [
         {
           "id": "noteDependencies",
-          "name": "Node Dependencies"
+          "name": "misskey timeline"
         }
       ]
     },
