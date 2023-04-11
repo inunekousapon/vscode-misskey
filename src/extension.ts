@@ -6,7 +6,7 @@ import { Stream } from 'misskey-js';
 import { WebSocket } from 'ws';
 
 function detailhtml(dep: Dependency): string {
-	return `
+    return `
 	<html>
 		<head>
 			<meta charset="UTF-8" />
@@ -43,48 +43,48 @@ function detailhtml(dep: Dependency): string {
 // Your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
 
-	const rootPath =
-		vscode.workspace.workspaceFolders && vscode.workspace.workspaceFolders.length > 0
-			? vscode.workspace.workspaceFolders[0].uri.fsPath
-			: undefined;
-	const noteDependenciesProvider = new DepNodeProvider(rootPath);
-	vscode.window.registerTreeDataProvider(
-		'noteDependencies', noteDependenciesProvider
-	);
+    const rootPath =
+        vscode.workspace.workspaceFolders && vscode.workspace.workspaceFolders.length > 0
+            ? vscode.workspace.workspaceFolders[0].uri.fsPath
+            : undefined;
+    const noteDependenciesProvider = new DepNodeProvider(rootPath);
+    vscode.window.registerTreeDataProvider(
+        'noteDependencies', noteDependenciesProvider
+    );
 
-	vscode.commands.registerCommand('noteDependencies.refreshEntry', () => {
-		noteDependenciesProvider.clear();
-		noteDependenciesProvider.refresh();
-	});
-	vscode.commands.registerCommand('noteDependencies.showDetail', (node: Dependency) => {
-		const panel = vscode.window.createWebviewPanel(
-			`${node.note.user.username}さん`,
-			`${node.note.user.username}さん`,
-			vscode.ViewColumn.Beside,
-			{
-				enableScripts: true,
-				enableFindWidget: true,
-			}
-		);
-		const onDiskPath = context.extensionUri;
-		panel.webview.asWebviewUri(onDiskPath);
-		panel.webview.html = detailhtml(node);
-	});
+    vscode.commands.registerCommand('noteDependencies.refreshEntry', () => {
+        noteDependenciesProvider.clear();
+        noteDependenciesProvider.refresh();
+    });
+    vscode.commands.registerCommand('noteDependencies.showDetail', (node: Dependency) => {
+        const panel = vscode.window.createWebviewPanel(
+            `${node.note.user.username}さん`,
+            `${node.note.user.username}さん`,
+            vscode.ViewColumn.Beside,
+            {
+                enableScripts: true,
+                enableFindWidget: true,
+            }
+        );
+        const onDiskPath = context.extensionUri;
+        panel.webview.asWebviewUri(onDiskPath);
+        panel.webview.html = detailhtml(node);
+    });
 
-	const stream = new Stream(
-		'<< input misskey server host >>',
-		{
-			token: '<< input your token >>'
-		},
-		{
-			WebSocket: WebSocket
-		}
-	);
-	const localChannel = stream.useChannel('localTimeline');
-	localChannel.on('note', note => {
-		noteDependenciesProvider.addNote(note);
-		noteDependenciesProvider.refresh();
-	});
+    const stream = new Stream(
+        '<< misskey host >>',
+        {
+            token: '<< input your token >>'
+        },
+        {
+            WebSocket: WebSocket
+        }
+    );
+    const localChannel = stream.useChannel('localTimeline');
+    localChannel.on('note', note => {
+        noteDependenciesProvider.addNote(note);
+        noteDependenciesProvider.refresh();
+    });
 
 }
 
